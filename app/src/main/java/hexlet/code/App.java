@@ -1,7 +1,7 @@
 package hexlet.code;
 
 public class App {
-    public static void main (String[] args) {
-        Cli.Talk();
+    public static void main(String[] args) {
+        Cli.tallk();
     }
 }
