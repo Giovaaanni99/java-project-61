@@ -3,17 +3,13 @@ package hexlet.code;
 import java.util.Scanner;
 
 public class Cli {
-    public static void talk() {
-        Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Welcome to the Brain Games!\nMay I have your name? ");
-
+    public static String greet() {
+        System.out.println("Welcome to the Brain Games!");
+        System.out.print("May I have your name? ");
         String name = scanner.nextLine();
-
-        System.out.print("Hello," + name + "!" + "\n");
-        System.out.println();
-
-        scanner.close();
-
+        System.out.println("Hello, " + name + "!");
+        return name; // Возвращаем имя пользователя
     }
 }
