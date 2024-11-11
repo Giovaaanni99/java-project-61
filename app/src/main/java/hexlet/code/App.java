@@ -8,7 +8,7 @@ public class App {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Please enter the game number and press Enter\n1 - Greet\n2 - Even\n3 - Calc\n0 - Exit\n");
+        System.out.print("Please enter the game number and press Enter\n1 - Greet\n2 - Even\n3 - Calc\n4 - GCD\n0 - Exit\n");
         int choise = scanner.nextInt();
         switch (choise) {
             case 1:
@@ -20,6 +20,9 @@ public class App {
             case 3:
                 App.calc();
                 break;
+            case 4:
+                App.gcd();
+                break;
             case 0:
                 System.out.println("Exiting the game. Goodbye!");
                 break;
@@ -28,6 +31,7 @@ public class App {
         }
         scanner.close();
     }
+
     private static void even() {
 
         int totalRounds = 3;
@@ -99,4 +103,52 @@ public class App {
         };
     }
 
+    private static void gcd() {
+        int totalRounds = 3;
+        final Random rANDOM = new Random();
+        String userName = Cli.greet();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Find the greatest common divisor of given numbers.");
+        for (int round = 0; round < totalRounds; round++) {
+            int num1 = rANDOM.nextInt(100);
+            int num2 = rANDOM.nextInt(100);
+            int correctNum = gcdCorrect(num1, num2);
+
+            System.out.printf("Question: %d %s\n", num1, num2);
+            System.out.print("Your answer: ");
+            String userAnswer = scanner.nextLine();
+
+            try {
+                int userAnswerInt = Integer.parseInt(userAnswer);
+                if (userAnswerInt == correctNum) {
+                    System.out.println("Correct!");
+                } else {
+                    System.out.printf("'%s' is wrong answer ;(. Correct answer was '%d'.%n", userAnswer, correctNum);
+                    System.out.printf("Let's try again, %s!%n", userName);
+                    return; // Завершаем игру при неправильном ответе
+                }
+            } catch (NumberFormatException e) {
+                System.out.printf("'%s' is not a valid number. Let's try again, %s!%n", userAnswer, userName);
+                return; // Завершаем игру при неверном формате ответа
+            }
+        }
+        System.out.printf("Congratulations, %s!%n", userName);
+
+    }
+
+    private static int gcdCorrect(int a, int b) {
+        while (b != 0) {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+
+    }
+
 }
+
+
+
+
+
