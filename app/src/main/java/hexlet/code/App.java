@@ -8,7 +8,16 @@ public class App {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Please enter the game number and press Enter\n1 - Greet\n2 - Even\n3 - Calc\n4 - GCD\n0 - Exit\n");
+        System.out.print("""
+                Please enter the game number and press Enter\
+
+                1 - Greet
+                2 - Even
+                3 - Calc
+                4 - GCD
+                5 - Progression
+                0 - Exit
+                """);
         int choise = scanner.nextInt();
         switch (choise) {
             case 1:
@@ -22,6 +31,9 @@ public class App {
                 break;
             case 4:
                 App.gcd();
+                break;
+            case 5:
+                App.progression();
                 break;
             case 0:
                 System.out.println("Exiting the game. Goodbye!");
@@ -146,7 +158,60 @@ public class App {
 
     }
 
+    private static void progression() {
+        int totalRounds = 3;
+        int maxLength = 10;
+        int minLength = 5;
+        final Random rANDOM = new Random();
+        String userName = Cli.greet();
+        Scanner scanner = new Scanner(System.in);
+        for (int round = 0; round < totalRounds; round++) {
+            int lengthProgression = rANDOM.nextInt(maxLength - minLength + 1) + minLength;
+            int start = rANDOM.nextInt(20);
+            int step = rANDOM.nextInt(5) + 1;
+            int missingIndex = rANDOM.nextInt(lengthProgression);
+            int[] progression = new int[lengthProgression];
+            for (int i = 0; i < lengthProgression; i++) {
+                progression[i] = start + i * step;
+            }
+            int missingNumber = progression[missingIndex];
+            progression[missingIndex] = -1;
+            System.out.println("What number is missing in the progression?");
+            System.out.println("Question: ");
+            printProgression(progression);
+            System.out.print("Your answer: ");
+            String userAnswer = scanner.nextLine();
+
+            try {
+                int userAnswerInt = Integer.parseInt(userAnswer);
+                if (userAnswerInt == missingNumber) {
+                    System.out.println("Correct!");
+                } else {
+                    System.out.printf("'%s' is wrong answer ;(. Correct answer was '%d'.%n", userAnswer, missingNumber);
+                    System.out.printf("Let's try again, %s!%n", userName);
+                    return; // Завершаем игру при неправильном ответе
+                }
+            } catch (NumberFormatException e) {
+                System.out.printf("'%s' is not a valid number. Let's try again, %s!%n", userAnswer, userName);
+                return; // Завершаем игру при неверном формате ответа
+            }
+        }
+        System.out.printf("Congratulations, %s!%n", userName);
+    }
+
+    private static void printProgression(int[] progression) {
+        for (int number : progression) {
+            if (number == -1) {
+                System.out.print(".. ");
+            } else {
+                System.out.print(number + " ");
+            }
+        }
+        System.out.println();
+    }
 }
+
+
 
 
 
