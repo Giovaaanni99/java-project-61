@@ -221,6 +221,7 @@ public class App {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Answer 'yes' if given number is prime. Otherwise answer 'no'.");
         for (int round = 0; round < totalRounds; round++) {
+
             int number = rANDOM.nextInt(100); // Генерация числа от 0 до 99
             System.out.println("Question: " + number);
             System.out.print("Your answer: ");
