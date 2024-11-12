@@ -18,9 +18,9 @@ public class App {
                 5 - Progression
                 6 - Prime
                 0 - Exit
-                """);
-        int choise = scanner.nextInt();
-        switch (choise) {
+                Your choice:""");
+        int choice = scanner.nextInt();
+        switch (choice) {
             case 1:
                 Cli.greet();
                 break;
