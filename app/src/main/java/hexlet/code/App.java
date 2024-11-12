@@ -16,6 +16,7 @@ public class App {
                 3 - Calc
                 4 - GCD
                 5 - Progression
+                6 - Prime
                 0 - Exit
                 """);
         int choise = scanner.nextInt();
@@ -34,6 +35,9 @@ public class App {
                 break;
             case 5:
                 App.progression();
+                break;
+            case 6:
+                App.prime();
                 break;
             case 0:
                 System.out.println("Exiting the game. Goodbye!");
@@ -208,6 +212,44 @@ public class App {
             }
         }
         System.out.println();
+    }
+
+    private static void prime() {
+        int totalRounds = 3;
+        final Random rANDOM = new Random();
+        String userName = Cli.greet();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Answer 'yes' if given number is prime. Otherwise answer 'no'.");
+        for (int round = 0; round < totalRounds; round++) {
+            int number = rANDOM.nextInt(100); // Генерация числа от 0 до 99
+            System.out.println("Question: " + number);
+            System.out.print("Your answer: ");
+            String userAnswer = scanner.nextLine().trim().toLowerCase();
+            boolean isPrime = isPrime(number);
+            String correctAnswer = (isPrime) ? "yes" : "no";
+
+            if (!userAnswer.equals(correctAnswer)) {
+                System.out.println("'" + userAnswer + "' is wrong answer ;(. Correct answer was '" + correctAnswer + "'.");
+                System.out.println("Let's try again, " + userName + "!");
+                return; // Завершение игры при неверном ответе
+            }
+            System.out.println("Correct!");
+        }
+
+        System.out.println("Congratulations, " + userName + "!");
+        scanner.close();
+    }
+
+    private static boolean isPrime(int number) {
+        if (number <= 1) {
+            return false;
+        }
+        for (int i = 2; i <= Math.sqrt(number); i++) {
+            if (number % i == 0) {
+                return false;
+            }
+        }
+        return true;
     }
 }
 
