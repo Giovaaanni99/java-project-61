@@ -9,9 +9,9 @@ public final class Greet {
     public void setUserName(String pUserName) {
         this.userName = pUserName;
     }
-    public String getUserName() {
+    /*public String getUserName() {
         return this.userName;
-    }
+    }*/
 
     public void showGreeting() {
         System.out.println("Welcome to the Brain Games!");

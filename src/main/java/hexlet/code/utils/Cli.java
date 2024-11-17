@@ -7,9 +7,8 @@ public class Cli {
 
         var input = new Scanner(System.in);
         System.out.print(questionText);
-        var answer = input.nextLine();
 
-        return answer;
+        return input.nextLine();
     }
 
     public static int getUserIntAnswer(String questionText) {
