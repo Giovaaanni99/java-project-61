@@ -1,6 +1,7 @@
-package hexlet.code.gameEngine;
+package hexlet.code;
 
 import hexlet.code.utils.Cli;
+import hexlet.code.gameEngine.Game;
 
 public final class Engine {
 
