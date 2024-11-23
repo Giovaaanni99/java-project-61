@@ -31,3 +31,9 @@ tasks.getByName("run", JavaExec::class) {
     standardInput = System.`in`
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
