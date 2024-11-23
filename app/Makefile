@@ -3,7 +3,7 @@ build:
 	gradle installDist
 
 run-dist:
-	./gradlew clean install
+	#./gradlew clean install
 	./build/install/app/bin/app
 
 run-win:
