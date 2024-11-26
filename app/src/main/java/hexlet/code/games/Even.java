@@ -1,32 +1,30 @@
 package hexlet.code.games;
 
-import hexlet.code.gameEngine.Game;
+import hexlet.code.Engine;
+import hexlet.code.Cli;
 
-import java.util.Random;
+public class Even {
+    static final String RULES = "Answer 'yes' if the number is even, otherwise answer 'no'.";
 
-public final class Even implements Game {
-    public static final String GAME_START_QUESTION = "Answer 'yes' if the number is even, otherwise answer 'no'.";
-    public static final String LAP_QUESTION_PATTERN = "%s";
+    public static void run() {
+        var rounds = new String[Engine.NUM_OF_ROUNDS][2];
 
-    private final Random randomGenerator;
-    private String lapAnswer;
+        for (var i = 0; i < rounds.length; i += 1) {
+            rounds[i] = generateRound();
+        }
 
-    public Even() {
-        randomGenerator = new Random();
-    }
-    public String getStartQuestion() {
-        return GAME_START_QUESTION;
+        Engine.runGame(RULES, rounds);
     }
 
-    public String getLapQuestion() {
-        var number = randomGenerator.nextInt();
-        var question = String.format(LAP_QUESTION_PATTERN, number);
-        lapAnswer = ((number % 2) == 0) ? "yes" : "no";
+    private static String[] generateRound() {
+        var randomNumber = Cli.generateRandomNumber();
+        var rightAnswer = isEven(randomNumber) ? "yes" : "no";
+        var question = "" + randomNumber;
 
-        return question;
+        return new String[]{question, rightAnswer};
     }
 
-    public String getLapAnswer() {
-        return lapAnswer;
+    private static boolean isEven(int number) {
+        return number % 2 == 0;
     }
 }

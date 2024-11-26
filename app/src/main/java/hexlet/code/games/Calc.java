@@ -1,45 +1,38 @@
-
 package hexlet.code.games;
 
-import hexlet.code.gameEngine.Game;
+import hexlet.code.Engine;
+import hexlet.code.Cli;
 
-import java.util.Random;
+public class Calc {
+    static final String RULES = "What is the result of the expression?";
+    static final String[] OPERATORS = {"+", "-", "*"};
 
-public final class Calc implements Game {
-    public static final String GAME_START_QUESTION = "What is the result of the expression?";
-    private static final int MAX_OPERAND_VALUE = 100;
-    private static final String[] OPERATORS = {"+", "-", "*"};
-    public static final String LAP_QUESTION_PATTERN = "%s %s %s";
+    public static void run() {
+        var rounds = new String[Engine.NUM_OF_ROUNDS][2];
 
-    private final Random operandRandomGenerator;
-    private String lapAnswer;
+        for (var i = 0; i < rounds.length; i += 1) {
+            rounds[i] = generateRound();
+        }
 
-    public Calc() {
-        operandRandomGenerator = new Random();
-    }
-    public String getStartQuestion() {
-        return GAME_START_QUESTION;
+        Engine.runGame(RULES, rounds);
     }
 
-    public String getLapQuestion() {
-        var operand1 = operandRandomGenerator.nextInt(MAX_OPERAND_VALUE);
-        var operand2 = operandRandomGenerator.nextInt(MAX_OPERAND_VALUE);
-        var operatorIndex = operandRandomGenerator.nextInt(OPERATORS.length);
+    private static String[] generateRound() {
+        var operand1 = Cli.generateRandomNumber();
+        var operand2 = Cli.generateRandomNumber();
+        var operator = OPERATORS[Cli.generateRandomNumber(0, OPERATORS.length)];
+        var rightAnswer = "" + calculateRightAnswer(operand1, operand2, operator);
+        var question = operand1 + " " + operator + " " + operand2;
 
-        var operator = OPERATORS[operatorIndex];
-        int lapAnswerInt = switch (operator) {
+        return new String[]{question, rightAnswer};
+    }
+
+    private static int calculateRightAnswer(int operand1, int operand2, String operator) {
+        return switch (operator) {
             case "+" -> operand1 + operand2;
             case "-" -> operand1 - operand2;
             case "*" -> operand1 * operand2;
-            default -> 0; // не найден оператор?
+            default -> throw new RuntimeException("Unknown operator");
         };
-        lapAnswer = Integer.toString(lapAnswerInt);
-        String question;
-        question = String.format(LAP_QUESTION_PATTERN, operand1, operator, operand2);
-        return question;
-    }
-
-    public String getLapAnswer() {
-        return lapAnswer;
     }
 }

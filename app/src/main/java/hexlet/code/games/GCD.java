@@ -1,37 +1,37 @@
 package hexlet.code.games;
 
-import hexlet.code.gameEngine.Game;
-import static hexlet.code.utils.Math.gcd;
-import java.util.Random;
+import hexlet.code.Engine;
+import hexlet.code.Cli;
 
-public final class GCD  implements Game {
+public class GCD {
+    static final String RULES = "Find the greatest common divisor of given numbers.";
 
-    public static final String GAME_START_QUESTION = "Find the greatest common divisor of given numbers.";
-    public static final String LAP_QUESTION_PATTERN = "%s %s";
-    private static final int MAX_OPERAND_VALUE = 100;
+    public static void run() {
+        var rounds = new String[Engine.NUM_OF_ROUNDS][2];
 
-    private final Random operandRandomGenerator;
-    private String lapAnswer;
+        for (var i = 0; i < rounds.length; i += 1) {
+            rounds[i] = generateRound();
+        }
 
-    public GCD() {
-        operandRandomGenerator = new Random();
-    }
-    public String getStartQuestion() {
-        return GAME_START_QUESTION;
+        Engine.runGame(RULES, rounds);
     }
 
-    public String getLapQuestion() {
-        var operand1 = operandRandomGenerator.nextInt(MAX_OPERAND_VALUE);
-        var operand2 = operandRandomGenerator.nextInt(MAX_OPERAND_VALUE);
+    private static String[] generateRound() {
+        var number1 = Cli.generateRandomNumber() + 1;
+        var number2 = Cli.generateRandomNumber() + 1;
+        var rightAnswer = "" + gcd(number1, number2);
+        var question = number1 + " " + number2;
 
-        var lapAnswerInt = gcd(operand1, operand2);
-        lapAnswer = Integer.toString(lapAnswerInt);
-        return String.format(LAP_QUESTION_PATTERN, operand1, operand2);
+        return new String[]{question, rightAnswer};
     }
 
-    public String getLapAnswer() {
-        return lapAnswer;
+    private static int gcd(int number1, int number2) {
+        var minNumber = Math.min(number1, number2);
+        for (var i = minNumber; i > 1; i -= 1) {
+            if ((number1 % i == 0) && (number2 % i == 0)) {
+                return i;
+            }
+        }
+        return 1;
     }
-
-
 }

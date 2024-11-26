@@ -1,53 +1,47 @@
 package hexlet.code.games;
 
-import hexlet.code.gameEngine.Game;
-import java.util.Random;
+import hexlet.code.Engine;
+import hexlet.code.Cli;
 
-public final class Progression  implements Game {
+public class Progression {
+    static final String RULES = "What number is missing in the progression?";
+    static final int PROGRESSION_SIZE = 10;
+    static final int MIN_STEP_VALUE = 1;
+    static final int MAX_STEP_VALUE = 10;
 
-    public static final String GAME_START_QUESTION = "What number is missing in the progression?";
-    public static final int LENGTH_SEED = 7;
-    public static final int LENGTH_ADDITION = 5;
-    public static final int FIRST_ELEMENT_SEED = 100;
-    public static final int STEP_SEED = 100;
+    public static void run() {
+        var rounds = new String[Engine.NUM_OF_ROUNDS][2];
 
-    private final Random randomGenerator;
-    private String lapAnswer;
-
-    public Progression() {
-        randomGenerator = new Random();
-    }
-
-    public String getStartQuestion() {
-        return GAME_START_QUESTION;
-    }
-
-    public String getLapQuestion() {
-
-        var progression = getProgression();
-        var hiddenElementIndex = randomGenerator.nextInt(progression.length);
-        lapAnswer = progression[hiddenElementIndex];
-        progression[hiddenElementIndex] = "..";
-
-        return String.join(" ", progression);
-    }
-
-    public String getLapAnswer() {
-        return lapAnswer;
-    }
-
-    private String[] getProgression() {
-
-        var progressionLength = randomGenerator.nextInt(LENGTH_SEED) + LENGTH_ADDITION;
-        var progression = new String[progressionLength];
-        var firstElement = randomGenerator.nextInt(FIRST_ELEMENT_SEED);
-        var step = randomGenerator.nextInt(STEP_SEED);
-
-        for (var i = 0; i < progressionLength; i++) {
-            progression[i] = Integer.toString(firstElement + step * i);
+        for (var i = 0; i < rounds.length; i += 1) {
+            rounds[i] = generateRound();
         }
 
+        Engine.runGame(RULES, rounds);
+    }
+
+    private static String[] generateRound() {
+        var progressionStartNumber = Cli.generateRandomNumber();
+        var progressionStep = Cli.generateRandomNumber(MIN_STEP_VALUE, MAX_STEP_VALUE);
+        var progression = generateProgression(progressionStartNumber, progressionStep, PROGRESSION_SIZE);
+        var hiddenValueIndex = Cli.generateRandomNumber(0, PROGRESSION_SIZE - 1);
+        var question = generateQuestion(progression, hiddenValueIndex);
+        var rightAnswer = progression[hiddenValueIndex];
+
+        return new String[]{question, rightAnswer};
+    }
+
+    private static String[] generateProgression(int first, int step, int size) {
+        var progression = new String[size];
+
+        for (var i = 0; i < size; i += 1) {
+            progression[i] = Integer.toString(first + step * i);
+        }
         return progression;
     }
 
+    private static String generateQuestion(String[] progression, int hiddenValueIndex) {
+        var items = progression.clone();
+        items[hiddenValueIndex] = "..";
+        return String.join(" ", items);
+    }
 }

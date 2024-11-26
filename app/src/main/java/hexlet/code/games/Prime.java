@@ -1,38 +1,38 @@
 package hexlet.code.games;
 
-import java.util.Random;
-import hexlet.code.gameEngine.Game;
-import hexlet.code.utils.Math;
+import hexlet.code.Engine;
+import hexlet.code.Cli;
 
-public final class Prime implements Game {
+public class Prime {
+    static final String RULES = "Answer 'yes' if given number is prime. Otherwise answer 'no'.";
 
-    public static final String GAME_START_QUESTION = "Answer 'yes' if given number is prime. Otherwise answer 'no'.";
-    public static final int PRIMES_UPPER_EDGE = 50;
+    public static void run() {
+        var rounds = new String[Engine.NUM_OF_ROUNDS][2];
 
-    private final Random randomGenerator;
-    private String lapAnswer;
-    private final boolean[] primes;
+        for (var i = 0; i < rounds.length; i += 1) {
+            rounds[i] = generateRound();
+        }
 
-    public Prime() {
-        randomGenerator = new Random();
-        primes = Math.primes(PRIMES_UPPER_EDGE);
+        Engine.runGame(RULES, rounds);
     }
 
-    public String getStartQuestion() {
-        return GAME_START_QUESTION;
+    private static String[] generateRound() {
+        var number = Cli.generateRandomNumber();
+        var question = "" + number;
+        var rightAnswer = isPrime(number) ? "yes" : "no";
+
+        return new String[]{question, rightAnswer};
     }
 
-    public String getLapQuestion() {
-
-        var questionNumber = randomGenerator.nextInt(PRIMES_UPPER_EDGE);
-        lapAnswer = primes[questionNumber] ? "yes" : "no";
-
-        return Integer.toString(questionNumber);
+    private static boolean isPrime(int number) {
+        if (number <= 1) {
+            return false;
+        }
+        for (var i = number / 2; i > 1; i -= 1) {
+            if (number % i == 0) {
+                return false;
+            }
+        }
+        return true;
     }
-
-    public String getLapAnswer() {
-        return lapAnswer;
-    }
-
 }
-

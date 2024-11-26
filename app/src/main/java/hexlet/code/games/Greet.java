@@ -1,23 +1,14 @@
 package hexlet.code.games;
 
-import hexlet.code.utils.Cli;
+import java.util.Scanner;
 
-public final class Greet {
+public class Greet {
+    public static void greeting() {
+        Scanner scanner = new Scanner(System.in);
 
-    private String userName;
-
-    public void setUserName(String pUserName) {
-        this.userName = pUserName;
-    }
-    /*public String getUserName() {
-        return this.userName;
-    }*/
-
-    public void showGreeting() {
         System.out.println("Welcome to the Brain Games!");
-        var pUserName = Cli.getUserLineAnswer("May I have your name? ");
-        System.out.printf("Hello, %s! \n", pUserName);
-        setUserName(pUserName);
+        System.out.print("May I have your name? ");
+        String userName = scanner.next();
+        System.out.println("Hello, " + userName + "!");
     }
-
 }

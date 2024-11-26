@@ -1,51 +1,39 @@
 package hexlet.code;
 
-import hexlet.code.utils.Cli;
-import hexlet.code.gameEngine.Game;
+import java.util.Scanner;
 
-public final class Engine {
+public class Engine {
+    public static final int NUM_OF_ROUNDS = 3;
 
-    private static final String WELCOME_QUESTION = "Welcome to the Brain Games!\nMay I have your name? ";
-    private static final String WELCOME_GREET_PATTERN = "Hello, %s!\n";
-    private static final String CORRECT_ANSWER_RESPONSE = "Correct!\n";
-    private static final String WIN_RESPONSE_PATTERN = "Congratulations, %s!\n";
-    private static final String DEFEAT_RESPONSE_PATTERN = """
-            '%s' is wrong answer ;(. Correct answer was '%s'.
-            Let's try again, %s!
-            """;
-    private static final String LAP_QUESTION_PATTERN = "Question: %s\nYour answer: ";
-    private static final int ROUNDS_NUMBER = 3;
+    public static void runGame(String rules, String[][] gameData) {
+        var scanner = new Scanner(System.in);
+        var userName = greetUser(scanner);
 
-    private String userName;
-    private final Game game;
+        System.out.println(rules);
 
-    public Engine(Game pGame) {
-        this.game = pGame;
-    }
+        for (var round : gameData) {
+            System.out.println("Question: " + round[0]);
+            System.out.print("Your answer: ");
+            String userAnswer = scanner.next();
 
-    public void startGame() {
-        // Приветствие
-        showGreeting();
-        // Показываем инициализирующий вопрос игры
-        System.out.println(game.getStartQuestion());
-        // В цикле задаём вопросы
-        for (var i = 1; i <= ROUNDS_NUMBER; i++) {
-            var gameQuestion = game.getLapQuestion();
-            var lapQuestion = String.format(LAP_QUESTION_PATTERN, gameQuestion);
-            var lapAnswer = Cli.getUserLineAnswer(lapQuestion);
-            var gameLapAnswer = game.getLapAnswer();
-            if (lapAnswer.equals(gameLapAnswer)) {
-                System.out.println(CORRECT_ANSWER_RESPONSE);
+            if (userAnswer.toLowerCase().equals(round[1])) {
+                System.out.println("Correct!");
             } else {
-                System.out.printf(DEFEAT_RESPONSE_PATTERN, lapAnswer, gameLapAnswer, userName);
+                System.out.print("'" + userAnswer + "' is wrong answer ;(. ");
+                System.out.println("Correct answer was '" + round[1] + "'.");
+                System.out.println("Let's try again, " + userName + "!");
                 return;
             }
         }
-        // Получены корректные ответы на все вопросы
-        System.out.printf(WIN_RESPONSE_PATTERN, userName);
+        System.out.println("Congratulations, " + userName + "!");
     }
-    public void showGreeting() {
-        this.userName = Cli.getUserLineAnswer(WELCOME_QUESTION);
-        System.out.printf(WELCOME_GREET_PATTERN, userName);
+
+    static String greetUser(Scanner scanner) {
+        System.out.println();
+        System.out.println("Welcome to the Brain Games!");
+        System.out.print("May I have your name? ");
+        String userName = scanner.next();
+        System.out.println("Hello, " + userName + "!");
+        return userName;
     }
 }
