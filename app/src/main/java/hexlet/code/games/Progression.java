@@ -22,7 +22,7 @@ public class Progression {
     private static String[] generateRound() {
         var progressionStartNumber = Cli.generateRandomNumber();
         var progressionStep = Cli.generateRandomNumber(MIN_STEP_VALUE, MAX_STEP_VALUE);
-        var progression = generateProgression(progressionStartNumber, progressionStep, PROGRESSION_SIZE);
+        var progression = generateProgression(progressionStartNumber, progressionStep);
         var hiddenValueIndex = Cli.generateRandomNumber(0, PROGRESSION_SIZE - 1);
         var question = generateQuestion(progression, hiddenValueIndex);
         var rightAnswer = progression[hiddenValueIndex];
@@ -30,10 +30,10 @@ public class Progression {
         return new String[]{question, rightAnswer};
     }
 
-    private static String[] generateProgression(int first, int step, int size) {
-        var progression = new String[size];
+    private static String[] generateProgression(int first, int step) {
+        var progression = new String[Progression.PROGRESSION_SIZE];
 
-        for (var i = 0; i < size; i += 1) {
+        for (var i = 0; i < Progression.PROGRESSION_SIZE; i += 1) {
             progression[i] = Integer.toString(first + step * i);
         }
         return progression;
