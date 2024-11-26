@@ -3,7 +3,7 @@ package hexlet.code.games;
 import hexlet.code.Engine;
 import hexlet.code.Cli;
 
-public class GCD {
+public class Gcd {
     static final String RULES = "Find the greatest common divisor of given numbers.";
 
     public static void run() {

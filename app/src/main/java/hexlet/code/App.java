@@ -3,13 +3,22 @@ package hexlet.code;
 import hexlet.code.games.Greet;
 import hexlet.code.games.Calc;
 import hexlet.code.games.Even;
-import hexlet.code.games.GCD;
+import hexlet.code.games.Gcd;
 import hexlet.code.games.Progression;
 import hexlet.code.games.Prime;
+
 
 import java.util.Scanner;
 
 public class App {
+
+    private static final int GREET = 1;
+    private static final int EVEN = 2;
+    private static final int CALC = 3;
+    private static final int GCD = 4;
+    private static final int PROGRESSION = 5;
+    private static final int PRIME = 6;
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -27,12 +36,12 @@ public class App {
         int userChoice = scanner.nextInt();
 
         switch (userChoice) {
-            case 1 -> Greet.greeting();
-            case 2 -> Even.run();
-            case 3 -> Calc.run();
-            case 4 -> GCD.run();
-            case 5 -> Progression.run();
-            case 6 -> Prime.run();
+            case GREET -> Greet.greeting();
+            case EVEN -> Even.run();
+            case CALC -> Calc.run();
+            case GCD -> Gcd.run();
+            case PROGRESSION -> Progression.run();
+            case PRIME -> Prime.run();
             default -> {
             }
         }
