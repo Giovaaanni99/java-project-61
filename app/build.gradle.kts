@@ -1,8 +1,6 @@
 plugins {
-    java
     application
     checkstyle
-    `java-library`
 }
 
 application {
