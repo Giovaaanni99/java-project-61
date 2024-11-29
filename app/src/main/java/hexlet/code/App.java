@@ -32,7 +32,7 @@ public class App {
                 5 - Progression
                 6 - Prime
                 0 - Exit
-                Your choice:""");
+                Your choice:\s""");
         int userChoice = scanner.nextInt();
 
         switch (userChoice) {

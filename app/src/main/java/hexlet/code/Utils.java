@@ -1,7 +1,7 @@
 
 package hexlet.code;
 
-public class Cli {
+public class Utils {
     static final int MIN_RANDOM_NUMBER = 0;
     static final int MAX_RANDOM_NUMBER = 100;
 

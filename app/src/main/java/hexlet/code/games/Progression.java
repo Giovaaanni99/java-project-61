@@ -1,11 +1,13 @@
 package hexlet.code.games;
 
 import hexlet.code.Engine;
-import hexlet.code.Cli;
+import hexlet.code.Utils;
+
 
 public class Progression {
     static final String RULES = "What number is missing in the progression?";
-    static final int PROGRESSION_SIZE = 10;
+    static final int MIN_PROGRESSION_SIZE = 5;
+    static final int MAX_PROGRESSION_SIZE = 10;
     static final int MIN_STEP_VALUE = 1;
     static final int MAX_STEP_VALUE = 10;
 
@@ -20,20 +22,21 @@ public class Progression {
     }
 
     private static String[] generateRound() {
-        var progressionStartNumber = Cli.generateRandomNumber();
-        var progressionStep = Cli.generateRandomNumber(MIN_STEP_VALUE, MAX_STEP_VALUE);
-        var progression = generateProgression(progressionStartNumber, progressionStep);
-        var hiddenValueIndex = Cli.generateRandomNumber(0, PROGRESSION_SIZE - 1);
+        var progressionStartNumber = Utils.generateRandomNumber();
+        var progressionStep = Utils.generateRandomNumber(MIN_STEP_VALUE, MAX_STEP_VALUE);
+        var lengthProgression = Utils.generateRandomNumber(MIN_PROGRESSION_SIZE, MAX_PROGRESSION_SIZE);
+        var hiddenValueIndex = Utils.generateRandomNumber(0, lengthProgression);
+        var progression = generateProgression(progressionStartNumber, progressionStep, lengthProgression);
         var question = generateQuestion(progression, hiddenValueIndex);
         var rightAnswer = progression[hiddenValueIndex];
 
         return new String[]{question, rightAnswer};
     }
 
-    private static String[] generateProgression(int first, int step) {
-        var progression = new String[Progression.PROGRESSION_SIZE];
+    private static String[] generateProgression(int first, int step, int size) {
+        var progression = new String[size];
 
-        for (var i = 0; i < Progression.PROGRESSION_SIZE; i += 1) {
+        for (var i = 0; i < size; i += 1) {
             progression[i] = Integer.toString(first + step * i);
         }
         return progression;

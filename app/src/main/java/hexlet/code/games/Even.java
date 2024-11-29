@@ -1,7 +1,7 @@
 package hexlet.code.games;
 
 import hexlet.code.Engine;
-import hexlet.code.Cli;
+import hexlet.code.Utils;
 
 public class Even {
     static final String RULES = "Answer 'yes' if the number is even, otherwise answer 'no'.";
@@ -17,7 +17,7 @@ public class Even {
     }
 
     private static String[] generateRound() {
-        var randomNumber = Cli.generateRandomNumber();
+        var randomNumber = Utils.generateRandomNumber();
         var rightAnswer = isEven(randomNumber) ? "yes" : "no";
         var question = "" + randomNumber;
 

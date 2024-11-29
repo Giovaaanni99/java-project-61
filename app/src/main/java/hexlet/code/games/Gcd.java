@@ -1,7 +1,7 @@
 package hexlet.code.games;
 
 import hexlet.code.Engine;
-import hexlet.code.Cli;
+import hexlet.code.Utils;
 
 public class Gcd {
     static final String RULES = "Find the greatest common divisor of given numbers.";
@@ -17,8 +17,8 @@ public class Gcd {
     }
 
     private static String[] generateRound() {
-        var number1 = Cli.generateRandomNumber() + 1;
-        var number2 = Cli.generateRandomNumber() + 1;
+        var number1 = Utils.generateRandomNumber() + 1;
+        var number2 = Utils.generateRandomNumber() + 1;
         var rightAnswer = "" + gcd(number1, number2);
         var question = number1 + " " + number2;
 

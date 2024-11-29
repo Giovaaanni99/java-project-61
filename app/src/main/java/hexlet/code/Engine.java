@@ -7,7 +7,11 @@ public class Engine {
 
     public static void runGame(String rules, String[][] gameData) {
         var scanner = new Scanner(System.in);
-        var userName = greetUser(scanner);
+        System.out.println();
+        System.out.println("Welcome to the Brain Games!");
+        System.out.print("May I have your name? ");
+        String userName = scanner.nextLine();
+        System.out.println("\nHello, " + userName + "!\n");
 
         System.out.println(rules);
 
@@ -28,12 +32,4 @@ public class Engine {
         System.out.println("Congratulations, " + userName + "!");
     }
 
-    static String greetUser(Scanner scanner) {
-        System.out.println();
-        System.out.println("Welcome to the Brain Games!");
-        System.out.print("May I have your name? ");
-        String userName = scanner.next();
-        System.out.println("Hello, " + userName + "!");
-        return userName;
-    }
 }

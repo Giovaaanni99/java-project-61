@@ -1,7 +1,7 @@
 package hexlet.code.games;
 
 import hexlet.code.Engine;
-import hexlet.code.Cli;
+import hexlet.code.Utils;
 
 public class Prime {
     static final String RULES = "Answer 'yes' if given number is prime. Otherwise answer 'no'.";
@@ -17,7 +17,7 @@ public class Prime {
     }
 
     private static String[] generateRound() {
-        var number = Cli.generateRandomNumber();
+        var number = Utils.generateRandomNumber();
         var question = "" + number;
         var rightAnswer = isPrime(number) ? "yes" : "no";
 
